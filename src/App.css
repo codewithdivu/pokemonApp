@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Oleo+Script&family=Open+Sans&family=Oxygen&display=swap');
+
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Oxygen', sans-serif;
+}
+
+
+
+
+.home{
+  padding-top: 20px;
+  margin: auto;
+  
+}
+
+.card{
+  height: 250px;
+  align-items: center;
+  border-radius: 10px;
+  padding: 1 2rem;
+  justify-content: space-between;
+  box-sizing: border-box;
+
+}
+
+.card img{
+  height: 80px;
+  width: 90px;
+}
+
+.add-card{
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(200px,0.5fr));
+
+  grid-gap: 8px;
+  
+
+}
+
+.pokeinfo{
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgb(255, 255, 255);
+  border-radius: 1rem;
+  padding: 2px 5px;
+  
+}
+
+.pokeinfo img{
+  width: 210px;
+  height: 140px;
+  margin: 2rem;
+}
+
+
+.poke-details{
+ 
+  text-align: center;
+  color:black;
+  
+}
+
+.group{
+  background-color: darkslategrey;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+
+.basic-info{
+  margin-top: 2rem;
+}
+
+.btn-group{
+  display: flex;
+
+}
+
+.btn-group button{
+  outline: none;
+  border: none;
+  width: 150px;
+  padding: 0.3rem 0;
+  margin: 1rem;
+  font-size: 17px;
+  font-weight: bold;
+  background-color: black;
+  color: white;
+  border-radius: 30px;
+}
+
+
+
+.navbar-nav{
+  margin-left: auto;
+}
+
+.signup-img{
+  height: 320px;
+  width: 300px;
+}
+
+.page-not-found{
+  align-content: center;
+  justify-self: center;
+  text-align: center;
+  font-size: 55px;
+  margin-left: 40%;
+}
+
+
+.login-text{
+  cursor: pointer;
+  color: red;
+  font-weight: 700;
+
+}
+
