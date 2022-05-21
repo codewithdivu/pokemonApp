@@ -5,29 +5,12 @@ import axios from "axios";
 import DropDown from "./DropDown/main";
 import { useNavigate } from "react-router-dom";
 
-const likeDislikeOptions = [
-  {
-    label: "All",
-    value: "",
-  },
-  {
-    label: "Liked",
-    value: true,
-  },
-  {
-    label: "Disliked",
-    value: false,
-  },
-];
-
 const Home = () => {
   const [pokemonData, setPokemonData] = useState([]);
   const [pokemonTypes, setPokemonTypes] = useState([]);
   const [pokemonRegions, setPokemonRegions] = useState([]);
   const [selectedPokemonType, setSelectedPokemonType] = useState("");
   const [selectedRegion, setSelectedRegion] = useState("");
-  const [likeDislikeSelectedOption, setLikeDislikeSelectedOption] =
-    useState("");
   const [loading, setLoading] = useState(true);
   const [nextUrl, setNextUrl] = useState();
   const [prevUrl, setPrevUrl] = useState();
@@ -123,12 +106,6 @@ const Home = () => {
       )
     : pokemonData;
 
-  filteredPokemonData = likeDislikeSelectedOption
-    ? filteredPokemonData.filter(
-        (p) => p?.isLiked === Boolean(likeDislikeSelectedOption)
-      )
-    : filteredPokemonData;
-
   filteredPokemonData = selectedRegion
     ? filteredPokemonData.filter((p) =>
         p?.locations.some((l) => l.name === selectedRegion)
@@ -140,20 +117,13 @@ const Home = () => {
       <div className="container home">
         <h1 className="text-center text-white pb-2">Pokemon Collections</h1>
         <button className="btn btn-primary" onClick={() => navigate("/liked")}>
-          Go to Liked Pokemon
+          Go to Liked Pokemon Page
         </button>
-        <div className="row d-flex justify-content-between m-5">
+        <div className="row d-flex justify-content-around m-5">
           <DropDown
             options={pokemonTypes}
             value={selectedPokemonType}
             onChange={handleOnChangeSelectedPokemonType}
-          />
-          <DropDown
-            options={likeDislikeOptions}
-            onChange={({ target }) =>
-              setLikeDislikeSelectedOption(target.value)
-            }
-            value={likeDislikeSelectedOption}
           />
           <DropDown
             options={pokemonRegions}

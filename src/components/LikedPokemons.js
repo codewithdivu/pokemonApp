@@ -5,7 +5,7 @@ import PokemonCard from "./PokemonCard";
 export const LikedPokemons = () => {
   const [pokemonData, setPokemonData] = useState([]);
   const [joke, setJoke] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [pokemonDex, setPokemonDex] = useState();
 
   useEffect(() => {
@@ -28,7 +28,6 @@ export const LikedPokemons = () => {
       index === pid ? { ...p, isLiked: isLiked ? false : true } : p
     );
     setPokemonData(likedPokemon);
-    localStorage.setItem("pokemonData", JSON.stringify(likedPokemon));
     setPokemonDex({
       ...likedPokemon.find((t, index) => index === pid),
       index: pid,
@@ -45,15 +44,16 @@ export const LikedPokemons = () => {
             pokemons={pokemonData}
             loading={loading}
             infoPokemon={(poke) => setPokemonDex(poke)}
+            handleToggleLikeDislike={handleToggleLikeDislike}
           />
         </div>
       </div>
       <div className="col-4 col-md-4 mx-auto poke-details  text-white">
-        <Pokemon
+        {/* <Pokemon
           handleToggleLikeDislike={handleToggleLikeDislike}
           data={pokemonDex}
           chukJoke={joke}
-        />
+        /> */}
       </div>
     </div>
   );
