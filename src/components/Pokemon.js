@@ -1,12 +1,10 @@
 import React from "react";
 import users from "./Users";
 
-const Pokemon = ({ data, chukJoke, handleToggleLikeDislike }) => {
+const Pokemon = ({ data, chukJoke }) => {
   // random user function------------------
   const randomUser = (user) => {
-    // get random index value
     const randIndex = Math.floor(Math.random() * user.length);
-    // get random username
     const username = user[randIndex];
     return username;
   };
@@ -55,12 +53,6 @@ const Pokemon = ({ data, chukJoke, handleToggleLikeDislike }) => {
                 );
               })}
             </div>
-            <button
-              className="btn btn-primary"
-              onClick={() => handleToggleLikeDislike(data.index, data.isLiked)}
-            >
-              {data.isLiked ? "DisLike" : "Like"}
-            </button>
           </div>
         </div>
       )}
