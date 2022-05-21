@@ -12,7 +12,7 @@ const PokemonCard = ({ pokemons, loading, infoPokemon, jokeFunction }) => {
               <div
                 className="card bg-success p-3"
                 key={item.id}
-                onClick={() => infoPokemon(item)}
+                onClick={() => infoPokemon({ ...item, index })}
               >
                 <h5>{item.id}</h5>
                 <img

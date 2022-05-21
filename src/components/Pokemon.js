@@ -1,19 +1,17 @@
 import React from "react";
 import users from "./Users";
 
-const Pokemon = ({ data,chukJoke }) => {
-
+const Pokemon = ({ data, chukJoke, handleToggleLikeDislike }) => {
   // random user function------------------
-  const randomUser=(user)=>{
-
-     // get random index value
-    const randIndex = Math.floor(Math.random()* user.length)
+  const randomUser = (user) => {
+    // get random index value
+    const randIndex = Math.floor(Math.random() * user.length);
     // get random username
-    const username=user[randIndex]
-    return username
-  }
-  const result=randomUser(users)
-  
+    const username = user[randIndex];
+    return username;
+  };
+  const result = randomUser(users);
+
   return (
     <div>
       {!data ? (
@@ -21,15 +19,16 @@ const Pokemon = ({ data,chukJoke }) => {
       ) : (
         <div>
           <div className="pokeinfo mx-auto text-center">
-          <h5 className="poke-title mt-2 text-capitalize">
-              <span className="text-danger">{result.name}</span> The <span className="text-primary">{data.name}</span>
+            <h5 className="poke-title mt-2 text-capitalize">
+              <span className="text-danger">{result.name}</span> The{" "}
+              <span className="text-primary">{data.name}</span>
             </h5>
             <img
               src={data.sprites.other.dream_world.front_default}
               className="card-img-top img-fluid"
               alt="..."
             />
-            
+
             <p>{chukJoke}</p>
 
             <div className="poke-detail">
@@ -40,14 +39,13 @@ const Pokemon = ({ data,chukJoke }) => {
               </p>
             </div>
 
-            
-            {data.types.map((poke,index) => {
+            {data.types.map((poke, index) => {
               return <p key={index}>Types: {poke.type.name}</p>;
             })}
 
             <div className="skill">
               <h3 className="text-warning">Skills</h3>
-              {data.stats.map((poke,index) => {
+              {data.stats.map((poke, index) => {
                 return (
                   <div key={index}>
                     <p>
@@ -57,6 +55,12 @@ const Pokemon = ({ data,chukJoke }) => {
                 );
               })}
             </div>
+            <button
+              className="btn btn-primary"
+              onClick={() => handleToggleLikeDislike(data.index, data.isLiked)}
+            >
+              {data.isLiked ? "DisLike" : "Like"}
+            </button>
           </div>
         </div>
       )}
@@ -65,5 +69,3 @@ const Pokemon = ({ data,chukJoke }) => {
 };
 
 export default Pokemon;
-
-

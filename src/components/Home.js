@@ -4,10 +4,27 @@ import Pokemon from "./Pokemon";
 import axios from "axios";
 import DropDown from "./DropDown/main";
 
+const likeDislikeOptions = [
+  {
+    label: "All",
+    value: "",
+  },
+  {
+    label: "Liked",
+    value: true,
+  },
+  {
+    label: "Disliked",
+    value: false,
+  },
+];
+
 const Home = () => {
   const [pokemonData, setPokemonData] = useState([]);
   const [pokemonTypes, setPokemonTypes] = useState([]);
   const [selectedPokemonType, setSelectedPokemonType] = useState("");
+  const [likeDislikeSelectedOption, setLikeDislikeSelectedOption] =
+    useState("");
   const [loading, setLoading] = useState(true);
   const [nextUrl, setNextUrl] = useState();
   const [prevUrl, setPrevUrl] = useState();
@@ -80,6 +97,18 @@ const Home = () => {
     setSelectedPokemonType(target.value);
   };
 
+  const handleToggleLikeDislike = (pid, isLiked) => {
+    let likedPokemon = [...pokemonData];
+    likedPokemon = likedPokemon.map((p, index) =>
+      index === pid ? { ...p, isLiked: isLiked ? false : true } : p
+    );
+    setPokemonData(likedPokemon);
+    setPokemonDex({
+      ...likedPokemon.find((t, index) => index === pid),
+      index: pid,
+    });
+  };
+
   return (
     <>
       <div className="container home">
@@ -90,7 +119,7 @@ const Home = () => {
             value={selectedPokemonType}
             onChange={handleOnChangeSelectedPokemonType}
           />
-          <DropDown />
+          <DropDown options={likeDislikeOptions} />
           <DropDown />
         </div>
         <div className="row ">
@@ -132,7 +161,11 @@ const Home = () => {
             </div>
           </div>
           <div className="col-4 col-md-4 mx-auto poke-details  text-white">
-            <Pokemon data={pokemonDex} chukJoke={joke} />
+            <Pokemon
+              handleToggleLikeDislike={handleToggleLikeDislike}
+              data={pokemonDex}
+              chukJoke={joke}
+            />
           </div>
         </div>
       </div>
