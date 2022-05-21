@@ -78,11 +78,11 @@ const Home = () => {
     setPokemonRegions([{ label: "All", value: "" }, ...formattedData]);
   };
 
-  const getJoke = async () => {
+  const getJoke = React.useCallback(async () => {
     const res = await fetch(`https://api.chucknorris.io/jokes/random`);
     const chukJoke = await res.json();
     setJoke(chukJoke.value);
-  };
+  }, []);
 
   const handleOnChangeSelectedPokemonType = ({ target }) =>
     setSelectedPokemonType(target.value);
@@ -90,14 +90,10 @@ const Home = () => {
   const handleToggleLikeDislike = (pid, isLiked) => {
     let likedPokemon = [...pokemonData];
     likedPokemon = likedPokemon.map((p, index) =>
-      index === pid ? { ...p, isLiked: isLiked ? false : true } : p
+      index === pid ? { ...p, isLiked } : p
     );
     setPokemonData(likedPokemon);
     localStorage.setItem("pokemonData", JSON.stringify(likedPokemon));
-    setPokemonDex({
-      ...likedPokemon.find((t, index) => index === pid),
-      index: pid,
-    });
   };
 
   let filteredPokemonData = selectedPokemonType

@@ -6,7 +6,6 @@ export const LikedPokemons = () => {
   const [pokemonData, setPokemonData] = useState([]);
   const [joke, setJoke] = useState("");
   const [loading, setLoading] = useState(false);
-  const [pokemonDex, setPokemonDex] = useState();
 
   useEffect(() => {
     if (localStorage.getItem("pokemonData")) {
@@ -28,10 +27,6 @@ export const LikedPokemons = () => {
       index === pid ? { ...p, isLiked: isLiked ? false : true } : p
     );
     setPokemonData(likedPokemon);
-    setPokemonDex({
-      ...likedPokemon.find((t, index) => index === pid),
-      index: pid,
-    });
   };
 
   return (
@@ -43,17 +38,10 @@ export const LikedPokemons = () => {
             jokeFunction={getJoke}
             pokemons={pokemonData}
             loading={loading}
-            infoPokemon={(poke) => setPokemonDex(poke)}
             handleToggleLikeDislike={handleToggleLikeDislike}
+            isLikeSection={true}
           />
         </div>
-      </div>
-      <div className="col-4 col-md-4 mx-auto poke-details  text-white">
-        {/* <Pokemon
-          handleToggleLikeDislike={handleToggleLikeDislike}
-          data={pokemonDex}
-          chukJoke={joke}
-        /> */}
       </div>
     </div>
   );

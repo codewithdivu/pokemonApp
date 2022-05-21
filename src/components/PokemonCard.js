@@ -6,6 +6,7 @@ const PokemonCard = ({
   infoPokemon,
   jokeFunction,
   handleToggleLikeDislike,
+  isLikeSection,
 }) => {
   return (
     <>
@@ -18,15 +19,21 @@ const PokemonCard = ({
               <div
                 className="text-white"
                 key={index}
-                style={{
-                  cursor: "pointer",
-                }}
-                onClick={jokeFunction}
+                style={
+                  !isLikeSection
+                    ? {
+                        cursor: "pointer",
+                      }
+                    : {}
+                }
               >
                 <div
                   className="card bg-success p-3"
                   key={item.id}
-                  onClick={() => infoPokemon({ ...item, index })}
+                  onClick={() => {
+                    infoPokemon({ ...item, index });
+                    jokeFunction();
+                  }}
                 >
                   <h5>{item.id}</h5>
                   <img
@@ -41,30 +48,22 @@ const PokemonCard = ({
                     ))}
                   </div>
                 </div>
-                <div>
-                  <button
-                    className="btn btn-primary"
-                    onClick={() =>
-                      handleToggleLikeDislike(
-                        index,
-                        item?.isLiked ? true : false
-                      )
-                    }
-                  >
-                    Like
-                  </button>
-                  <button
-                    className="btn btn-danger"
-                    onClick={() =>
-                      handleToggleLikeDislike(
-                        index,
-                        item?.isLiked ? true : false
-                      )
-                    }
-                  >
-                    Dislike
-                  </button>
-                </div>
+                {!isLikeSection && (
+                  <div>
+                    <button
+                      className="btn btn-primary"
+                      onClick={() => handleToggleLikeDislike(index, true)}
+                    >
+                      Like
+                    </button>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => handleToggleLikeDislike(index, false)}
+                    >
+                      Dislike
+                    </button>
+                  </div>
+                )}
               </div>
             </>
           );
