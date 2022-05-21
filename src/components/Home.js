@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import PokemonCard from "./PokemonCard";
 import Pokemon from "./Pokemon";
@@ -16,7 +17,6 @@ const Home = () => {
   const [prevUrl, setPrevUrl] = useState();
 
   //setting an url from pokemon api
-  const [url, setUrl] = useState("https://pokeapi.co/api/v2/pokemon?limit=9");
   const [pokemonDex, setPokemonDex] = useState();
   const [joke, setJoke] = useState("");
   const navigate = useNavigate();
@@ -69,12 +69,24 @@ const Home = () => {
     });
 
     const pp = await Promise.all(allLocationData);
+    const localLikedData = JSON.parse(localStorage.getItem("pokemonData"));
+    let finalData;
+    if (localLikedData) {
+      finalData = pp.map((i) => {
+        return localLikedData.some((t) => t?.isLiked === true && t.id === i.id)
+          ? { ...i, isLiked: true }
+          : { ...i };
+      });
+    } else {
+      finalData = pp;
+    }
+
+    setPokemonData([...finalData]);
 
     let formattedData = pp?.map((a) => a.locations).flat();
     formattedData = [...new Set(formattedData.map((item) => item.name))].map(
       (item) => ({ label: item.split("-").join(" "), value: item })
     );
-    setPokemonData([...pp]);
     setPokemonRegions([{ label: "All", value: "" }, ...formattedData]);
   };
 
@@ -92,8 +104,12 @@ const Home = () => {
     likedPokemon = likedPokemon.map((p, index) =>
       index === pid ? { ...p, isLiked } : p
     );
+    const existingLocalData = JSON.parse(localStorage.getItem("pokemonData"));
+    let finalForLocalData = existingLocalData
+      ? [...existingLocalData, ...likedPokemon]
+      : likedPokemon;
     setPokemonData(likedPokemon);
-    localStorage.setItem("pokemonData", JSON.stringify(likedPokemon));
+    localStorage.setItem("pokemonData", JSON.stringify(finalForLocalData));
   };
 
   let filteredPokemonData = selectedPokemonType

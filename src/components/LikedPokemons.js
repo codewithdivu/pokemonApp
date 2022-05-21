@@ -10,6 +10,7 @@ export const LikedPokemons = () => {
   useEffect(() => {
     if (localStorage.getItem("pokemonData")) {
       let localData = JSON.parse(localStorage.getItem("pokemonData"));
+
       localData = localData.filter((i) => i?.isLiked === true);
       setPokemonData(localData);
     }

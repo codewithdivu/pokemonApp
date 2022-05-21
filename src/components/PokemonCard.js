@@ -52,13 +52,23 @@ const PokemonCard = ({
                   <div>
                     <button
                       className="btn btn-primary"
-                      onClick={() => handleToggleLikeDislike(index, true)}
+                      disabled={item?.isLiked === true}
+                      onClick={() =>
+                        item?.isLiked === true
+                          ? null
+                          : handleToggleLikeDislike(index, true)
+                      }
                     >
                       Like
                     </button>
                     <button
                       className="btn btn-danger"
-                      onClick={() => handleToggleLikeDislike(index, false)}
+                      disabled={item?.isLiked === false}
+                      onClick={() =>
+                        item?.isLiked === false
+                          ? null
+                          : handleToggleLikeDislike(index, false)
+                      }
                     >
                       Dislike
                     </button>
