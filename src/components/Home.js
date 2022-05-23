@@ -100,15 +100,20 @@ const Home = () => {
     setSelectedPokemonType(target.value);
 
   const handleToggleLikeDislike = (pid, isLiked) => {
-    let likedPokemon = [...pokemonData];
-    likedPokemon = likedPokemon.map((p, index) =>
-      index === pid ? { ...p, isLiked } : p
+    const likedPokemon = [...pokemonData];
+
+    let likedData = likedPokemon.find((p, index) => index === pid);
+    likedData = { ...likedData, isLiked: true };
+
+    const likedArr = likedPokemon.map((p, index) =>
+      index === pid ? { ...p, isLiked: isLiked } : p
     );
     const existingLocalData = JSON.parse(localStorage.getItem("pokemonData"));
     let finalForLocalData = existingLocalData
-      ? [...existingLocalData, ...likedPokemon]
-      : likedPokemon;
-    setPokemonData(likedPokemon);
+      ? [...existingLocalData, likedData]
+      : [likedData];
+
+    setPokemonData(likedArr);
     localStorage.setItem("pokemonData", JSON.stringify(finalForLocalData));
   };
 
